@@ -1,0 +1,133 @@
+# 参考文献注册表
+#
+# status：
+#   verified    已核对原文/链接（必须给 url）
+#   unverified  来自转述或二手来源，未核对原文（正文必须标"待核实"）
+#   known       领域通识，不必逐条核对（可无 url）
+#   pending     已知存在但尚未开始核实
+#
+# 规则：正文中出现 [R-KEY] 必须在本文中存在；unverified 的条目不得作为结论的唯一依据。
+
+refs:
+
+  - key: R-ARCHIVE
+    title: 本课题初始构想（2026-11-24 对话归档）
+    authors: [liqiduan, lead]
+    venue: 内部归档
+    year: 2026
+    url: docs/archive/2026-11-24-initial-thesis.md
+    status: verified
+    note: 内部来源，不是学术文献
+
+  - key: R-LIAO-NESTED-BSP
+    title: "Many Processors, Still One Computer: The Nested Parallel von Neumann Architecture and Nested BSP"
+    authors: [Heng Liao]
+    venue: arXiv:2609.16787v2
+    year: 2026
+    url: https://arxiv.org/abs/2609.16787
+    status: verified
+    note: 已核实（子代理 survey-liaoheng）。架构论述性长文，含 (p,g,l) 分层代价模型；不含 contract/refinement 形式化。不得把"层"直接类比为抽象层
+
+  - key: R-LIAO-VISA
+    title: "The Contract for Nested Parallel Computers — Taking Another Look at Instruction Set Architecture"
+    authors: [Liao Heng]
+    venue: "VISA 2026 (1st Workshop on Virtual ISA for Rapidly Evolving Architectures) @ MICRO 2026, Athens — Invited Talk"
+    year: 2026
+    url: https://visaworkshop.github.io/2026/
+    status: verified
+    note: "邀请报告，2026-10-31 13:00 EET。议题：ISA 作为嵌套并行计算机的层间契约。无公开 PPT/视频/论文；细节不得引用。书面近邻见 R-LIAO-NESTED-BSP"
+
+  - key: R-CANNBOT-DSL
+    title: CANNBot DSL
+    authors: [待核实]
+    venue: 待核实
+    year: 待核实
+    url: ""
+    status: unverified
+    note: 用户点名参考；能力边界未知
+
+  - key: R-PYASC-ASCTILE
+    title: PyAsc / asctile 层级编程
+    authors: [待核实]
+    venue: 待核实
+    year: 待核实
+    url: ""
+    status: unverified
+    note: Tile 层 MVP 的实现载体；API 能力决定方案可行性
+
+  - key: R-ASCEND-950
+    title: Ascend 950 硬件与工具链
+    authors: [待核实]
+    venue: 待核实
+    year: 待核实
+    url: ""
+    status: unverified
+    note: 二手规格（如 144GB/4TB/s）来自媒体报道，不可作论文论据
+
+  - key: R-MLIR
+    title: MLIR — Multi-Level Intermediate Representation / progressive lowering
+    authors: [LLVM Project]
+    venue: https://mlir.llvm.org/
+    year: 2019-
+    url: https://mlir.llvm.org/
+    status: known
+    note: 分层 lowering 的工程范式；POP 的差异在"观测与决策权"而非"变换分层"
+
+  - key: R-TVM
+    title: TVM / Ansor / MetaSchedule 自动调度
+    authors: [TVM community]
+    venue: https://tvm.apache.org/
+    year: 2018-
+    url: https://tvm.apache.org/
+    status: known
+
+  - key: R-TRITON
+    title: Triton — tile-level GPU DSL
+    authors: [OpenAI]
+    venue: https://triton-lang.org/
+    year: 2021-
+    url: https://triton-lang.org/
+    status: known
+
+  - key: R-TILELANG
+    title: TileLang — tile-level kernel DSL
+    authors: [TileLang contributors]
+    venue: https://github.com/tile-ai/tilelang
+    year: 2025-
+    url: https://github.com/tile-ai/tilelang
+    status: known
+
+  - key: R-HALIDE
+    title: Halide — algorithm/schedule 分离
+    authors: [Ragan-Kelley et al.]
+    venue: PLDI 2013
+    year: 2013
+    url: https://halide-lang.org/
+    status: known
+
+  - key: R-LLM-KERNEL
+    title: LLM/Agent 生成或优化 kernel 的代表工作（2024–2025）
+    authors: [待核实]
+    venue: 待核实
+    year: 待核实
+    url: ""
+    status: unverified
+    note: survey-stack 负责补充具体条目；未核实前只作"存在这一方向"的泛述
+
+  - key: R-PTO-ISA
+    title: PTO-ISA（Parallel Tile Operation）— Ascend CANN 的 tile 级虚拟指令集
+    authors: [CANN 团队]
+    venue: hiascend / atomgit
+    year: 2026
+    url: https://www.hiascend.com/en-sg/document/detail/en/CANNCommunityEdition/latest/compiler/ptoisa/docs/PTO-ISA-Header-and-Library-Description.md
+    status: unverified
+    note: 子代理报告 124 条 tile 指令且链接可达，lead 未复核原文。用途：佐证"同步/双缓冲下沉编译栈"可行，非新颖性来源
+
+  - key: R-VISA-PATENT
+    title: 虚拟指令集算子编译方法（分层地址空间 / pipe→内存屏障 / 多级缓存与双缓冲）
+    authors: [苏景波, 白有辉, 王盛南, 王森, 张弓 等]
+    venue: 专利 CN122072555A（华为 + 中科大）
+    year: 2026
+    url: https://patents.google.com/patent/CN122072555A/en
+    status: unverified
+    note: 子代理报告；发明人不含廖恒。作为"工程先例"引用，需复核

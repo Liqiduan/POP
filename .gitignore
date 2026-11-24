@@ -1,0 +1,15 @@
+# 实验产物（按 docs/05-experiments/plan.md：run 记录与 trace 归档但不入库）
+runs/
+*.jsonl
+*.trace
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# 系统
+.DS_Store
+
+# 独立的 skill 仓库，自带 .git，不并入本仓
+.agent/

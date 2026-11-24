@@ -1,0 +1,148 @@
+# 节点注册表 —— 唯一事实来源（机器可读）
+#
+# 字段：
+#   id       节点 ID（N-XXX），文档首行注释必须与之一致
+#   title    标题
+#   layer    层级；refines 只能指向 layer 更小的节点（由粗到细，单向）
+#   status   source | draft | hypothesis | conclusion | decision | superseded
+#   path     文件路径（相对仓库根）
+#   refines  本节点细化自哪些更粗的节点（有向无环，禁止同层/反向）
+#   refs     引用到的文献 key，必须存在于 refs.yaml
+#   header   true（默认）表示文档首行必须有 `<!-- <id> | layer: X | status: Y -->`
+#   evidence 仅 status=conclusion 需要：证据位置
+#   note     备注
+
+nodes:
+
+  - id: N-ARCHIVE-2026-11-24
+    title: 初始研究构想（逐字归档）
+    layer: 0
+    status: source
+    path: docs/archive/2026-11-24-initial-thesis.md
+    refines: []
+    refs: []
+    note: 一切下游文档的上游；只增不改
+
+  - id: N-ARCHIVE-2026-11-24-VISA
+    title: 归档 #002 · VISA 引用更正（廖恒 MICRO 2026 报告）
+    layer: 0
+    status: source
+    path: docs/archive/2026-11-24-visa-reference-clarification.md
+    refines: []
+    refs: [R-LIAO-VISA, R-LIAO-NESTED-BSP]
+    note: 只增不改；更正 #001 的 A9/A11 引用口径
+
+  - id: N-PROPOSAL
+    title: 开题报告 · 渐进式算子编程 POP
+    layer: 1
+    status: draft
+    path: docs/00-proposal/proposal.md
+    refines: [N-ARCHIVE-2026-11-24, N-ARCHIVE-2026-11-24-VISA]
+    refs: [R-LIAO-NESTED-BSP, R-LIAO-VISA, R-CANNBOT-DSL, R-PYASC-ASCTILE,
+           R-PTO-ISA, R-ASCEND-950, R-MLIR, R-TVM, R-TRITON, R-TILELANG,
+           R-HALIDE, R-LLM-KERNEL]
+
+  - id: N-FRAME-PROBLEM
+    title: 问题定义与形式化（决策空间、代价模型、度量任务）
+    layer: 2
+    status: draft
+    path: docs/01-framing/problem-statement.md
+    refines: [N-PROPOSAL]
+    refs: []
+
+  - id: N-SURVEY-RELATED
+    title: 相关工作与差异定位
+    layer: 2
+    status: draft
+    path: docs/02-survey/related-work.md
+    refines: [N-PROPOSAL]
+    refs: [R-LIAO-NESTED-BSP, R-LIAO-VISA, R-CANNBOT-DSL, R-PYASC-ASCTILE,
+           R-PTO-ISA, R-ASCEND-950, R-MLIR, R-TVM, R-TRITON, R-TILELANG,
+           R-HALIDE, R-LLM-KERNEL]
+
+  - id: N-THEORY-VISA
+    title: Nested VISA：契约、观测与影响
+    layer: 3
+    status: draft
+    path: docs/03-theory/nested-visa-contract.md
+    refines: [N-FRAME-PROBLEM, N-ARCHIVE-2026-11-24, N-ARCHIVE-2026-11-24-VISA]
+    refs: [R-LIAO-NESTED-BSP, R-LIAO-VISA, R-PTO-ISA]
+
+  - id: N-THEORY-REFINE
+    title: 单向精化：完备性、代价与反例
+    layer: 3
+    status: draft
+    path: docs/03-theory/refinement-order.md
+    refines: [N-FRAME-PROBLEM]
+    refs: [R-LIAO-NESTED-BSP]
+
+  - id: N-DESIGN-LAYERED-IR
+    title: 分层 API 与 IR（Tile/Buffer/Register）
+    layer: 4
+    status: draft
+    path: docs/04-design/layered-ir.md
+    refines: [N-THEORY-VISA, N-FRAME-PROBLEM]
+    refs: [R-PYASC-ASCTILE, R-CANNBOT-DSL]
+
+  - id: N-DESIGN-OBSERVE
+    title: 观测与交互（grouping / trace / cost model）
+    layer: 4
+    status: draft
+    path: docs/04-design/observability.md
+    refines: [N-THEORY-VISA]
+    refs: []
+
+  - id: N-EXP-PLAN
+    title: 实验方案与评价
+    layer: 4
+    status: draft
+    path: docs/05-experiments/plan.md
+    refines: [N-PROPOSAL, N-FRAME-PROBLEM, N-THEORY-REFINE]
+    refs: [R-ASCEND-950]
+
+  - id: N-PLAN-ROADMAP
+    title: 里程碑、任务分解与风险
+    layer: 5
+    status: draft
+    path: docs/06-roadmap/milestones.md
+    refines: [N-PROPOSAL, N-EXP-PLAN]
+    refs: []
+
+  # ---- _inbox：子代理原始产出，未集成，不参与正文引用 ----
+  - id: N-INBOX-EXP
+    title: "[draft] 实验协议（exp-designer 原始产出）"
+    layer: 2
+    status: draft
+    path: docs/_inbox/exp-plan.md
+    refines: [N-PROPOSAL]
+    refs: []
+    header: false
+    note: 已集成进 N-EXP-PLAN；保留原文供追溯
+
+  - id: N-INBOX-CRITIC
+    title: "[draft] 红队审阅意见"
+    layer: 2
+    status: draft
+    path: docs/_inbox/critic-redteam.md
+    refines: [N-PROPOSAL]
+    refs: [R-LIAO-NESTED-BSP]
+    header: false
+    note: 已部分采纳；未采纳条目需写明理由
+
+  - id: N-INBOX-SURVEY-LIAO
+    title: "[draft] Liao Heng / Nested BSP / V-ISA 调研"
+    layer: 2
+    status: draft
+    path: docs/_inbox/survey-liaoheng.md
+    refines: [N-PROPOSAL]
+    refs: [R-LIAO-NESTED-BSP, R-LIAO-VISA]
+    header: false
+
+  - id: N-INBOX-SURVEY-STACK
+    title: "[draft] PyAsc / CANNBot / Ascend 950 / 相关工作调研"
+    layer: 2
+    status: draft
+    path: docs/_inbox/survey-stack.md
+    refines: [N-PROPOSAL]
+    refs: [R-PYASC-ASCTILE, R-CANNBOT-DSL, R-ASCEND-950, R-MLIR, R-TVM, R-TRITON, R-TILELANG]
+    header: false
